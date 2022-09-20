@@ -120,7 +120,6 @@ describe('Windmill Context', () => {
       </Windmill>
     )
 
-    screen.debug()
     expect(document.documentElement.getAttribute('class')).toBe(expected)
   })
 })

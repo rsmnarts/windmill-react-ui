@@ -55,7 +55,6 @@ describe('PageButton', () => {
     const onClick = () => { }
     render(<PageButton isActive page={1} onClick={onClick} />)
 
-    screen.debug()
     expect(screen.getByRole('page-button').textContent).toBe('1')
   })
 
