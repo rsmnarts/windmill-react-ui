@@ -261,7 +261,7 @@ describe('PageButton', () => {
       )
 
       const user = userEvent.setup()
-      const thirdPage = screen.getAllByRole('page-button').at(2)
+      const thirdPage = screen.getAllByRole('page-button')[2]
       // go forward one page to activate prev button
       await user.click(thirdPage!)
 
