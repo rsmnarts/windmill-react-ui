@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
 import classNames from 'classnames'
+import React, { useContext } from 'react'
 import { ThemeContext } from './context/ThemeContext'
 
 export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -33,7 +33,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(function Avatar(pro
   const cls = classNames(baseStyle, sizeStyles[size], className)
 
   return (
-    <div className={cls} ref={ref} {...other}>
+    <div role='avatar' className={cls} ref={ref} {...other}>
       <img className="object-cover w-full h-full rounded-full" src={src} alt={alt} loading="lazy" />
       <div className="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
     </div>

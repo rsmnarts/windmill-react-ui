@@ -68,7 +68,7 @@ export const PageButton: React.FC<PageButtonProps> = function PageButton({
   onClick,
 }) {
   return (
-    <Button size="pagination" layout={isActive ? 'primary' : 'link'} onClick={onClick}>
+    <Button role='page-button' size="pagination" layout={isActive ? 'primary' : 'link'} onClick={onClick}>
       {page}
     </Button>
   )
@@ -164,7 +164,7 @@ const Pagination = React.forwardRef<Ref, PaginationProps>(function Pagination(pr
   const baseStyle = pagination.base
 
   return (
-    <div className={baseStyle} ref={ref} {...other}>
+    <div role='pagination' className={baseStyle} ref={ref} {...other}>
       {/*
        * This (label) should probably be an option, and not the default
        */}

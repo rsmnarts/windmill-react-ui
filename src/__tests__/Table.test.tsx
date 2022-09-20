@@ -1,15 +1,15 @@
+import { render, screen } from '@testing-library/react'
 import React from 'react'
-import { mount } from 'enzyme'
 import Table from '../Table'
 
 describe('Table', () => {
   it('should render without crashing', () => {
-    mount(<Table />)
+    render(<Table />)
   })
 
   it('should contain a table', () => {
-    const wrapper = mount(<Table />)
+    render(<Table />)
 
-    expect(wrapper.find('table')).toBeTruthy()
+    expect(screen.getByRole('table')).toBeTruthy
   })
 })

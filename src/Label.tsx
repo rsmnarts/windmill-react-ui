@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
 import classNames from 'classnames'
+import React, { useContext } from 'react'
 import { ThemeContext } from './context/ThemeContext'
 
 export interface LabelProps extends React.HTMLAttributes<HTMLLabelElement> {
@@ -36,7 +36,7 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(function Label(prop
   )
 
   return (
-    <label className={cls} ref={ref} {...other}>
+    <label role='label' className={cls} ref={ref} {...other}>
       {children}
     </label>
   )

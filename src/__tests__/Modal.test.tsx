@@ -1,11 +1,12 @@
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
-import { mount } from 'enzyme'
 import Modal from '../Modal'
 
 describe('Modal', () => {
   it('should render without crashing', () => {
     const onClose = jest.fn()
-    mount(
+    render(
       <Modal isOpen={true} onClose={onClose}>
         Lorem ipsum
       </Modal>
@@ -16,15 +17,13 @@ describe('Modal', () => {
     const onClose = jest.fn()
     const expected =
       'w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl'
-    const wrapper = mount(
+    render(
       <Modal isOpen={true} onClose={onClose}>
         Lorem ipsum
       </Modal>
     )
 
-    expect(wrapper.find('div[role="dialog"]').getDOMNode().getAttribute('class')).toContain(
-      expected
-    )
+    expect(screen.getByRole('dialog').getAttribute('class')).toContain(expected)
   })
 
   it('should call onClose when Esc is pressed', () => {
@@ -33,7 +32,7 @@ describe('Modal', () => {
       map[e] = cb
     })
     const onClose = jest.fn()
-    mount(
+    render(
       <Modal isOpen={true} onClose={onClose}>
         Lorem ipsum
       </Modal>
@@ -50,7 +49,7 @@ describe('Modal', () => {
       map[e] = cb
     })
     const onClose = jest.fn()
-    mount(
+    render(
       <Modal isOpen={true} onClose={onClose}>
         Lorem ipsum
       </Modal>
@@ -58,7 +57,7 @@ describe('Modal', () => {
 
     map.keydown({ key: 'Enter' })
 
-    expect(onClose).not.toHaveBeenCalled()
+    expect(onClose).not.toHaveBeenCalled
   })
 
   it('should remove the event listener on unmount', () => {
@@ -68,13 +67,13 @@ describe('Modal', () => {
     })
     document.removeEventListener = removeListener
     const onClose = jest.fn()
-    const wrapper = mount(
+    const { unmount } = render(
       <Modal isOpen={true} onClose={onClose}>
         Lorem ipsum
       </Modal>
     )
 
-    wrapper.unmount()
+    unmount()
 
     expect(removeListener).toHaveBeenCalled()
   })
@@ -85,14 +84,13 @@ describe('Modal', () => {
       map[e] = cb
     })
     const onClose = jest.fn()
-    const wrapper = mount(
+    render(
       <Modal isOpen={true} onClose={onClose}>
         Lorem ipsum
       </Modal>
     )
-    const modal = wrapper.find('div[role="dialog"]')
-
-    modal.simulate('click')
+    const user = userEvent.setup()
+    user.click(screen.getByRole('dialog'))
 
     expect(onClose).not.toHaveBeenCalled()
   })

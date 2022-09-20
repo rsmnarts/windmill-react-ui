@@ -1,10 +1,10 @@
+import { render } from '@testing-library/react'
 import React from 'react'
-import { mount } from 'enzyme'
 import TableBody from '../TableBody'
 
 describe('TableBody', () => {
   it('should render without crashing', () => {
-    mount(
+    render(
       <table>
         <TableBody />
       </table>
@@ -14,12 +14,12 @@ describe('TableBody', () => {
   it('should render with base styles', () => {
     const expected =
       'bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-gray-700 dark:text-gray-400'
-    const wrapper = mount(
+    const { container } = render(
       <table>
         <TableBody />
       </table>
     )
 
-    expect(wrapper.find('tbody').getDOMNode().getAttribute('class')).toContain(expected)
+    expect(container.querySelector('tbody')?.getAttribute('class')).toContain(expected)
   })
 })

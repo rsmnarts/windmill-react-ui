@@ -1,73 +1,69 @@
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
-import { mount } from 'enzyme'
-import Alert, { SuccessIcon, DangerIcon, WarningIcon, InfoIcon, NeutralIcon } from '../Alert'
+import Alert from '../Alert'
 
-describe('Avatar', () => {
+describe('Alert', () => {
   it('should render without crashing', () => {
-    mount(<Alert />)
+    render(<Alert />)
   })
 
-  it('should not contain a close button', () => {
-    const wrapper = mount(<Alert />)
+  it('should contain a alert', () => {
+    render(<Alert />)
 
-    expect(wrapper.find('button')).toHaveLength(0)
+    expect(screen.getByRole('alert')).toBeVisible
   })
 
   it('should contain a close button', () => {
-    const wrapper = mount(<Alert onClose={() => {}} />)
+    render(<Alert onClose={() => { }} />)
 
-    expect(wrapper.find('button')).toHaveLength(1)
+    expect(screen.getByRole('button')).toBeVisible
   })
 
   it('should call a function when close button is clicked', () => {
     const onClose = jest.fn()
-    const wrapper = mount(<Alert onClose={onClose} />)
+    render(<Alert onClose={onClose} />)
+    const user = userEvent.setup()
+    const btn = screen.getByRole('button')
+    user.click(btn)
 
-    wrapper.find('button[aria-label="close"]').simulate('click')
-
-    expect(onClose).toHaveBeenCalled()
+    expect(onClose).toHaveBeenCalled
   })
 
   it('should render a success icon', () => {
-    const wrapper = mount(<Alert type="success" />)
-    const Icon = SuccessIcon
+    render(<Alert type="success" />)
 
-    expect(wrapper.find(Icon)).toHaveLength(1)
+    expect(screen.getByTestId('success-icon')).toBeVisible
   })
 
   it('should render a danger icon', () => {
-    const wrapper = mount(<Alert type="danger" />)
-    const Icon = DangerIcon
+    render(<Alert type="danger" />)
 
-    expect(wrapper.find(Icon)).toHaveLength(1)
+    expect(screen.getByTestId('danger-icon')).toBeVisible
   })
 
   it('should render an info icon', () => {
-    const wrapper = mount(<Alert type="info" />)
-    const Icon = InfoIcon
+    render(<Alert type="info" />)
 
-    expect(wrapper.find(Icon)).toHaveLength(1)
+    expect(screen.getByTestId('info-icon')).toBeVisible
   })
 
   it('should render a warning icon', () => {
-    const wrapper = mount(<Alert type="warning" />)
-    const Icon = WarningIcon
+    render(<Alert type="warning" />)
 
-    expect(wrapper.find(Icon)).toHaveLength(1)
+    expect(screen.getByTestId('warning-icon')).toBeVisible
   })
 
   it('should render a neutral icon', () => {
-    const wrapper = mount(<Alert />)
-    const Icon = NeutralIcon
+    render(<Alert />)
 
-    expect(wrapper.find(Icon)).toHaveLength(1)
+    expect(screen.getByTestId('neutral-icon')).toBeVisible
   })
 
   it('should render a neutral icon for an invalid type', () => {
     // @ts-expect-error
-    const wrapper = mount(<Alert type="invalid" />)
-    const Icon = NeutralIcon
+    render(<Alert type="invalid" />)
 
-    expect(wrapper.find(Icon)).toHaveLength(1)
+    expect(screen.getByTestId('neutral-icon')).toBeVisible
   })
 })

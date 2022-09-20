@@ -1,10 +1,10 @@
+import { render, screen } from '@testing-library/react'
 import React from 'react'
-import { mount } from 'enzyme'
 import TableCell from '../TableCell'
 
 describe('TableCell', () => {
   it('should render without crashing', () => {
-    mount(
+    render(
       <table>
         <tbody>
           <tr>
@@ -17,7 +17,7 @@ describe('TableCell', () => {
 
   it('should render with base styles', () => {
     const expected = 'px-4 py-3'
-    const wrapper = mount(
+    render(
       <table>
         <tbody>
           <tr>
@@ -27,6 +27,6 @@ describe('TableCell', () => {
       </table>
     )
 
-    expect(wrapper.find('td').getDOMNode().getAttribute('class')).toContain(expected)
+    expect(screen.getByRole('cell').getAttribute('class')).toContain(expected)
   })
 })

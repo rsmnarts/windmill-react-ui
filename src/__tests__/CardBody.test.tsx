@@ -1,16 +1,16 @@
+import { render, screen } from '@testing-library/react'
 import React from 'react'
-import { mount } from 'enzyme'
 import CardBody from '../CardBody'
 
 describe('CardBody', () => {
   it('should render without crashing', () => {
-    mount(<CardBody />)
+    render(<CardBody />)
   })
 
   it('should render with default styles', () => {
     const expected = 'p-4'
-    const wrapper = mount(<CardBody />)
+    render(<CardBody />)
 
-    expect(wrapper.find(CardBody).getDOMNode().getAttribute('class')).toContain(expected)
+    expect(screen.getByRole('card-body').getAttribute('class')).toContain(expected)
   })
 })

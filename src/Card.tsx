@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
 import classNames from 'classnames'
+import React, { useContext } from 'react'
 import { ThemeContext } from './context/ThemeContext'
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -21,7 +21,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(props, re
   const cls = classNames(baseStyle, !colored && uncoloredStyle, className)
 
   return (
-    <div className={cls} ref={ref} {...other}>
+    <div role='card' className={cls} ref={ref} {...other}>
       {children}
     </div>
   )

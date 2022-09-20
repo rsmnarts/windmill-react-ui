@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
 import classNames from 'classnames'
+import React, { useContext } from 'react'
 import { ThemeContext } from './context/ThemeContext'
 
 export interface HelperTextProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -36,7 +36,7 @@ const HelperText = React.forwardRef<HTMLSpanElement, HelperTextProps>(function H
   const cls = classNames(baseStyle, validationStyle(valid), className)
 
   return (
-    <span className={cls} ref={ref} {...other}>
+    <span role='helper-text' className={cls} ref={ref} {...other}>
       {children}
     </span>
   )

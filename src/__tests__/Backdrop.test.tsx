@@ -1,17 +1,17 @@
+import { render, screen } from '@testing-library/react'
 import React from 'react'
-import { mount } from 'enzyme'
 import Backdrop from '../Backdrop'
 
 describe('Backdrop', () => {
   it('should render without crashing', () => {
-    mount(<Backdrop />)
+    render(<Backdrop />)
   })
 
   it('should render with base styles', () => {
     const expected =
       'fixed inset-0 z-40 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center'
-    const wrapper = mount(<Backdrop />)
+    render(<Backdrop />)
 
-    expect(wrapper.find(Backdrop).getDOMNode().getAttribute('class')).toContain(expected)
+    expect(screen.getByTestId('backdrop').getAttribute('class')).toContain(expected)
   })
 })

@@ -5,6 +5,7 @@ import warn from './utils/warning'
 
 type IconType =
   | string
+  | any
   | React.FunctionComponent<{ className: string; 'aria-hidden': boolean }>
   | React.ComponentClass<{ className: string; 'aria-hidden': boolean }>
 
@@ -143,18 +144,18 @@ const Button = React.forwardRef<Ref, ButtonProps>(function Button(props, ref) {
     layout === '__dropdownItem'
       ? classNames(dropdownItemStyle, className)
       : classNames(
-          baseStyle,
-          // has icon but no children
-          hasIcon() && !children && iconSizeStyles[size],
-          // has icon and children
-          hasIcon() && children && sizeStyles[size],
-          // does not have icon
-          !hasIcon() && sizeStyles[size],
-          layoutStyles[layout],
-          disabled ? disabledStyles[layout] : activeStyles[layout],
-          block ? blockStyle : null,
-          className
-        )
+        baseStyle,
+        // has icon but no children
+        hasIcon() && !children && iconSizeStyles[size],
+        // has icon and children
+        hasIcon() && children && sizeStyles[size],
+        // does not have icon
+        !hasIcon() && sizeStyles[size],
+        layoutStyles[layout],
+        disabled ? disabledStyles[layout] : activeStyles[layout],
+        block ? blockStyle : null,
+        className
+      )
 
   const iconLeftStyles = classNames(iconStyle, children ? button.icon.left : '')
   const iconRightStyles = classNames(iconStyle, children ? button.icon.right : '')
@@ -162,6 +163,7 @@ const Button = React.forwardRef<Ref, ButtonProps>(function Button(props, ref) {
   return React.createElement(
     tag,
     {
+      role: 'button',
       className: buttonStyles,
       ref,
       disabled,

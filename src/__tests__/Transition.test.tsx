@@ -1,10 +1,10 @@
+import { render } from '@testing-library/react'
 import React from 'react'
-import { mount } from 'enzyme'
 import Transition from '../Transition'
 
 describe('Transition', () => {
   it('should render without crashing', () => {
-    mount(
+    render(
       <Transition
         show={true}
         enter="transform"
@@ -20,7 +20,7 @@ describe('Transition', () => {
   })
 
   it('should render nested transitions', () => {
-    mount(
+    render(
       <Transition show={true}>
         <Transition
           enter="opacity-0"

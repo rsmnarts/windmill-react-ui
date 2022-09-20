@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
 import classNames from 'classnames'
+import React, { useContext } from 'react'
 import { ThemeContext } from './context/ThemeContext'
 
 export interface SelectProps extends React.ComponentPropsWithRef<'select'> {
@@ -46,7 +46,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(
   )
 
   return (
-    <select className={cls} ref={ref} disabled={disabled} multiple={!!multiple} {...other}>
+    <select role='select' className={cls} ref={ref} disabled={disabled} multiple={!!multiple} {...other}>
       {children}
     </select>
   )

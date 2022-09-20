@@ -1,44 +1,44 @@
+import { render, screen } from '@testing-library/react'
 import React from 'react'
-import { mount } from 'enzyme'
 import Dropdown from '../Dropdown'
 
 describe('Dropdown', () => {
   it('should render without crashing', () => {
     const onClose = jest.fn()
-    mount(<Dropdown isOpen={true} onClose={onClose} />)
+    render(<Dropdown isOpen={true} onClose={onClose} />)
   })
 
   it('should render with base styles', () => {
     const onClose = jest.fn()
     const expected =
       'absolute w-56 p-2 mt-2 text-gray-600 bg-white border border-gray-100 rounded-lg shadow-md min-w-max-content dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700 left-0'
-    const wrapper = mount(<Dropdown isOpen={true} onClose={onClose} />)
+    render(<Dropdown isOpen={true} onClose={onClose} />)
 
-    expect(wrapper.find('ul').getDOMNode().getAttribute('class')).toContain(expected)
+    expect(screen.getByRole('list').getAttribute('class')).toContain(expected)
   })
 
   it('should render aligned to the default position', () => {
     const onClose = jest.fn()
     const expected = 'left-0'
-    const wrapper = mount(<Dropdown isOpen={true} onClose={onClose} />)
+    render(<Dropdown isOpen={true} onClose={onClose} />)
 
-    expect(wrapper.find('ul').getDOMNode().getAttribute('class')).toContain(expected)
+    expect(screen.getByRole('list').getAttribute('class')).toContain(expected)
   })
 
   it('should render aligned to the left', () => {
     const onClose = jest.fn()
     const expected = 'left-0'
-    const wrapper = mount(<Dropdown align="left" isOpen={true} onClose={onClose} />)
+    render(<Dropdown align="left" isOpen={true} onClose={onClose} />)
 
-    expect(wrapper.find('ul').getDOMNode().getAttribute('class')).toContain(expected)
+    expect(screen.getByRole('list').getAttribute('class')).toContain(expected)
   })
 
   it('should render aligned to the right', () => {
     const onClose = jest.fn()
     const expected = 'right-0'
-    const wrapper = mount(<Dropdown align="right" isOpen={true} onClose={onClose} />)
+    render(<Dropdown align="right" isOpen={true} onClose={onClose} />)
 
-    expect(wrapper.find('ul').getDOMNode().getAttribute('class')).toContain(expected)
+    expect(screen.getByRole('list').getAttribute('class')).toContain(expected)
   })
 
   it('should call onClose when Esc is pressed', () => {
@@ -47,7 +47,7 @@ describe('Dropdown', () => {
       map[e] = cb
     })
     const onClose = jest.fn()
-    mount(<Dropdown isOpen={true} onClose={onClose} />)
+    render(<Dropdown isOpen={true} onClose={onClose} />)
 
     map.keydown({ key: 'Esc' })
 
@@ -60,7 +60,7 @@ describe('Dropdown', () => {
       map[e] = cb
     })
     const onClose = jest.fn()
-    mount(<Dropdown isOpen={true} onClose={onClose} />)
+    render(<Dropdown isOpen={true} onClose={onClose} />)
 
     map.click({ target: document.body })
 
@@ -73,9 +73,9 @@ describe('Dropdown', () => {
       map[e] = cb
     })
     const onClose = jest.fn()
-    const wrapper = mount(<Dropdown isOpen={true} onClose={onClose} />)
+    render(<Dropdown isOpen={true} onClose={onClose} />)
 
-    map.click({ target: wrapper.find('ul').getDOMNode() })
+    map.click({ target: screen.getByRole('list') })
 
     expect(onClose).not.toHaveBeenCalled()
   })
@@ -86,7 +86,7 @@ describe('Dropdown', () => {
       map[e] = cb
     })
     const onClose = jest.fn()
-    mount(<Dropdown isOpen={true} onClose={onClose} />)
+    render(<Dropdown isOpen={true} onClose={onClose} />)
 
     map.keydown({ key: 'Enter' })
 
@@ -100,9 +100,9 @@ describe('Dropdown', () => {
     })
     document.removeEventListener = removeListener
     const onClose = jest.fn()
-    const wrapper = mount(<Dropdown isOpen={true} onClose={onClose} />)
+    const { unmount } = render(<Dropdown isOpen={true} onClose={onClose} />)
 
-    wrapper.unmount()
+    unmount()
 
     expect(removeListener).toHaveBeenCalled()
   })

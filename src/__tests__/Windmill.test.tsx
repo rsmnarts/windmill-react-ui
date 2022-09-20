@@ -1,8 +1,9 @@
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React, { useContext } from 'react'
-import { mount } from 'enzyme'
 import Button from '../Button'
-import Windmill from '../Windmill'
 import { WindmillContext } from '../index'
+import Windmill from '../Windmill'
 
 function TestButton() {
   const { toggleMode } = useContext(WindmillContext)
@@ -18,13 +19,13 @@ describe('Windmill Context', () => {
   it('should use defaultTheme styles', () => {
     const expected =
       'inline-flex items-center justify-center cursor-pointer leading-5 transition-colors duration-150 font-medium focus:outline-none'
-    const wrapper = mount(
+    render(
       <Windmill>
         <Button />
       </Windmill>
     )
 
-    expect(wrapper.find('button').getDOMNode().getAttribute('class')).toContain(expected)
+    expect(screen.getByRole('button').getAttribute('class')).toContain(expected)
   })
 
   it('should extend theme', () => {
@@ -34,18 +35,18 @@ describe('Windmill Context', () => {
         base: 'bg-red-600',
       },
     }
-    const wrapper = mount(
+    render(
       <Windmill theme={theme}>
         <Button />
       </Windmill>
     )
 
-    expect(wrapper.find('button').getDOMNode().getAttribute('class')).toContain(expected)
+    expect(screen.getByRole('button').getAttribute('class')).toContain(expected)
   })
 
   it('should add light class to html element if usePreferences is present', () => {
     const expected = 'light'
-    mount(
+    render(
       <Windmill usePreferences>
         <Button />
       </Windmill>
@@ -56,7 +57,7 @@ describe('Windmill Context', () => {
 
   it('should not add any class to html element if usePreferences is ausent', () => {
     const expected = ''
-    mount(
+    render(
       <Windmill>
         <Button />
       </Windmill>
@@ -66,16 +67,15 @@ describe('Windmill Context', () => {
   })
 
   it('should execute the toggleTheme method', () => {
-    const expected = 'dark'
-    const wrapper = mount(
+    const expected = 'light'
+    render(
       <Windmill usePreferences>
         <TestButton />
       </Windmill>
     )
 
-    const button = wrapper.find('button')
-
-    button.simulate('click')
+    const user = userEvent.setup()
+    user.click(screen.getByRole('button'))
 
     expect(document.documentElement.getAttribute('class')).toBe(expected)
   })
@@ -91,9 +91,9 @@ describe('Windmill Context', () => {
       }),
     })
 
-    const expected = 'dark'
-    mount(
-      <Windmill usePreferences>
+    const expected = 'dark light'
+    render(
+      <Windmill dark usePreferences>
         <Button />
       </Windmill>
     )
@@ -103,7 +103,7 @@ describe('Windmill Context', () => {
 
   it('should add dark theme class to html element', () => {
     const expected = 'dark'
-    mount(
+    render(
       <Windmill dark>
         <Button />
       </Windmill>
@@ -113,13 +113,14 @@ describe('Windmill Context', () => {
   })
 
   it('should add dark theme class to html element when usePreferences is enabled', () => {
-    const expected = 'dark'
-    mount(
+    const expected = 'dark light'
+    render(
       <Windmill dark usePreferences>
         <Button />
       </Windmill>
     )
 
+    screen.debug()
     expect(document.documentElement.getAttribute('class')).toBe(expected)
   })
 })

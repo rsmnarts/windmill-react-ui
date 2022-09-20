@@ -1,6 +1,7 @@
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React, { useContext } from 'react'
-import { mount } from 'enzyme'
-import { ThemeProvider, ThemeContext } from '../../context/ThemeContext'
+import { ThemeContext, ThemeProvider } from '../../context/ThemeContext'
 
 function TestButton() {
   const { toggleMode } = useContext(ThemeContext)
@@ -11,28 +12,27 @@ function TestButton() {
 describe('ThemeProvider', () => {
   it('should show value from provider', () => {
     const expected = 'Lorem'
-    const wrapper = mount(
+    const { container } = render(
       <ThemeProvider value={{ theme: 'Lorem' }}>
         <ThemeContext.Consumer>{(value) => <span>{value.theme}</span>}</ThemeContext.Consumer>
       </ThemeProvider>
     )
 
-    expect(wrapper.find('span').text()).toContain(expected)
+    expect(container.querySelector('span')?.textContent).toContain(expected)
   })
 
   it('should execute the toggleMode method', () => {
     const toggleMode = jest.fn()
     const theme = { test: 'test' }
-    const wrapper = mount(
+    render(
       <ThemeContext.Provider value={{ toggleMode, theme }}>
         <TestButton />
       </ThemeContext.Provider>
     )
 
-    const button = wrapper.find('button')
+    const user = userEvent.setup()
+    user.click(screen.getByRole('button'))
 
-    button.simulate('click')
-
-    expect(toggleMode).toHaveBeenCalledTimes(1)
+    expect(toggleMode).toHaveBeenCalled
   })
 })

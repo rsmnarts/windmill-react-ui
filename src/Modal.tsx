@@ -1,8 +1,8 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
+import FocusLock from 'react-focus-lock'
 import Backdrop from './Backdrop'
 import Transition from './Transition'
-import FocusLock from 'react-focus-lock'
 
 import { ThemeContext } from './context/ThemeContext'
 

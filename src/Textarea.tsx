@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
 import classNames from 'classnames'
+import React, { useContext } from 'react'
 import { ThemeContext } from './context/ThemeContext'
 
 export interface TextareaProps extends React.ComponentPropsWithRef<'textarea'> {
@@ -47,7 +47,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function T
   )
 
   return (
-    <textarea className={cls} ref={ref} disabled={disabled} {...other}>
+    <textarea role='textarea' className={cls} ref={ref} disabled={disabled} {...other}>
       {children}
     </textarea>
   )
